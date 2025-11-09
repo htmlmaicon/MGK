@@ -14,23 +14,17 @@ class EditClientTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tipoCliente = clienteData['tipoCliente'] ?? 'Cliente';
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Editar $tipoCliente",
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
+          style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
         backgroundColor: Colors.green[900],
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: EditClientForm(
-        clienteId: clienteId,
-        clienteData: clienteData,
-      ),
+      body: EditClientForm(clienteId: clienteId, clienteData: clienteData),
     );
   }
 }

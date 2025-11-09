@@ -45,18 +45,40 @@ class _EditClientFormState extends State<EditClientForm> {
   void initState() {
     super.initState();
     // Inicializar controllers com os dados existentes
-    nomeController = TextEditingController(text: widget.clienteData['nome'] ?? '');
+    nomeController = TextEditingController(
+      text: widget.clienteData['nome'] ?? '',
+    );
     rgController = TextEditingController(text: widget.clienteData['rg'] ?? '');
-    cpfController = TextEditingController(text: widget.clienteData['cpf'] ?? '');
-    nascimentoController = TextEditingController(text: widget.clienteData['nascimento'] ?? '');
-    cepController = TextEditingController(text: widget.clienteData['cep'] ?? '');
-    enderecoController = TextEditingController(text: widget.clienteData['endereco'] ?? '');
-    paiController = TextEditingController(text: widget.clienteData['pai'] ?? '');
-    maeController = TextEditingController(text: widget.clienteData['mae'] ?? '');
-    expedicaoController = TextEditingController(text: widget.clienteData['expedicao'] ?? '');
-    emissorController = TextEditingController(text: widget.clienteData['emissor'] ?? '');
-    rendaController = TextEditingController(text: widget.clienteData['renda'] ?? '');
-    emailController = TextEditingController(text: widget.clienteData['email'] ?? '');
+    cpfController = TextEditingController(
+      text: widget.clienteData['cpf'] ?? '',
+    );
+    nascimentoController = TextEditingController(
+      text: widget.clienteData['nascimento'] ?? '',
+    );
+    cepController = TextEditingController(
+      text: widget.clienteData['cep'] ?? '',
+    );
+    enderecoController = TextEditingController(
+      text: widget.clienteData['endereco'] ?? '',
+    );
+    paiController = TextEditingController(
+      text: widget.clienteData['pai'] ?? '',
+    );
+    maeController = TextEditingController(
+      text: widget.clienteData['mae'] ?? '',
+    );
+    expedicaoController = TextEditingController(
+      text: widget.clienteData['expedicao'] ?? '',
+    );
+    emissorController = TextEditingController(
+      text: widget.clienteData['emissor'] ?? '',
+    );
+    rendaController = TextEditingController(
+      text: widget.clienteData['renda'] ?? '',
+    );
+    emailController = TextEditingController(
+      text: widget.clienteData['email'] ?? '',
+    );
   }
 
   @override

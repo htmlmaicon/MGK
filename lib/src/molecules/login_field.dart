@@ -5,12 +5,14 @@ class LoginField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final bool isPassword;
+  final Function(String)? onChanged;
 
   const LoginField({
     super.key,
     required this.controller,
     required this.label,
     this.isPassword = false,
+    this.onChanged,
   });
 
   @override
@@ -20,6 +22,7 @@ class LoginField extends StatelessWidget {
       label: label,
       obscureText: isPassword,
       keyboardType: isPassword ? TextInputType.text : TextInputType.number,
+      onChanged: onChanged,
     );
   }
 }

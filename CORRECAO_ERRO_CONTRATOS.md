@@ -1,12 +1,15 @@
 # 🔧 Correção: Erro ao Carregar Contratos Ativos
 
 ## ❌ Problema:
+
 ```
 [cloud_firestore/failed-precondition] The query requires an index.
 ```
 
 ## 🔍 Causa:
+
 A query estava usando `where()` + `orderBy()` em campos diferentes:
+
 ```dart
 // ❌ ANTES (Requer índice composto no Firestore)
 .where('contratoAtivo', isEqualTo: true)
@@ -16,6 +19,7 @@ A query estava usando `where()` + `orderBy()` em campos diferentes:
 Quando você usa filtro (`where`) em um campo e ordenação (`orderBy`) em outro campo diferente, o Firestore requer um índice composto, que precisa ser criado manualmente no Firebase Console.
 
 ## ✅ Solução Aplicada:
+
 Removemos o `orderBy()` da query e fazemos a ordenação manualmente no código:
 
 ```dart
@@ -27,25 +31,27 @@ Removemos o `orderBy()` da query e fazemos a ordenação manualmente no código:
 contratos.sort((a, b) {
   final dadosA = a.data() as Map<String, dynamic>;
   final dadosB = b.data() as Map<String, dynamic>;
-  
+
   final dataA = dadosA['criadoEm'] as Timestamp?;
   final dataB = dadosB['criadoEm'] as Timestamp?;
-  
+
   if (dataA == null && dataB == null) return 0;
   if (dataA == null) return 1;
   if (dataB == null) return -1;
-  
+
   return dataB.compareTo(dataA); // Mais recentes primeiro
 });
 ```
 
 ## 🎯 Vantagens da Solução:
+
 1. ✅ **Não requer índice** - Funciona imediatamente
 2. ✅ **Mais flexível** - Ordenação personalizada
 3. ✅ **Trata valores null** - Não quebra se faltar data
 4. ✅ **Performance** - OK para listas pequenas/médias
 
 ## 📊 Performance:
+
 - **Ótima** para até 100 clientes ativos
 - **Boa** para até 500 clientes ativos
 - **Adequada** para até 1000 clientes ativos
@@ -53,6 +59,7 @@ contratos.sort((a, b) {
 Se você tiver milhares de contratos ativos, pode considerar criar o índice composto no futuro.
 
 ## 🚀 Como Criar o Índice (Opcional):
+
 Se no futuro você quiser usar ordenação no servidor:
 
 1. Acesse [Firebase Console](https://console.firebase.google.com/)
@@ -68,6 +75,7 @@ Se no futuro você quiser usar ordenação no servidor:
 Ou simplesmente clique no link que aparece no erro, que já vai configurado!
 
 ## ✅ Testado e Funcionando!
+
 A tela de **Contratos Ativos** agora carrega normalmente, exibindo os clientes com contratos ativos ordenados do mais recente para o mais antigo.
 
 ---

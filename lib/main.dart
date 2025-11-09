@@ -1,21 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'src/pages/home_page.dart';
 import 'src/pages/cadastro_cliente_page.dart';
 import 'src/pages/posts_page.dart';
 import 'src/pages/login_page.dart';
 import 'src/pages/contratos_ativos_page.dart';
+import 'src/pages/solicitacoes_cadastro_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart'; // será criado automaticamente
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -33,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/cadastro': (context) => CadastroClientePage(),
         '/posts': (context) => const PostsPage(),
         '/contratos': (context) => const ContratosAtivosPage(),
+        '/solicitacoes': (context) => const SolicitacoesCadastroPage(),
       },
     );
   }

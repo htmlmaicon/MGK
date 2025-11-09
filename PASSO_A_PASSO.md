@@ -3,11 +3,13 @@
 ## ✅ O que foi feito:
 
 ### Arquivos Criados (Atomic Design):
+
 1. ✅ `lib/src/organisms/contracts_list_organism.dart` - Componente da lista de contratos
 2. ✅ `lib/src/templates/contracts_template.dart` - Template da página
 3. ✅ `lib/src/pages/contratos_ativos_page.dart` - Página principal
 
 ### Arquivos Modificados:
+
 4. ✅ `lib/main.dart` - Rota `/contratos` adicionada
 5. ✅ `lib/src/pages/home_page.dart` - Botão "Contratos Ativos" adicionado
 6. ✅ `lib/src/organisms/client_form.dart` - Campo `contratoAtivo: true` adicionado ao cadastro
@@ -21,6 +23,7 @@
 Para clientes já cadastrados, você precisa adicionar o campo `contratoAtivo` manualmente:
 
 **Opção A - Firebase Console (Recomendado para poucos clientes):**
+
 1. Acesse [Firebase Console](https://console.firebase.google.com/)
 2. Vá em Firestore Database
 3. Abra a coleção `clientes`
@@ -39,11 +42,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 Future<void> atualizarTodosClientes() async {
   final firestore = FirebaseFirestore.instance;
   final snapshot = await firestore.collection('clientes').get();
-  
+
   for (var doc in snapshot.docs) {
     await doc.reference.update({'contratoAtivo': true});
   }
-  
+
   print('✅ ${snapshot.docs.length} clientes atualizados!');
 }
 ```
@@ -70,11 +73,14 @@ flutter run
 ## 📱 Funcionalidades:
 
 ### ✅ Lista em Tempo Real
+
 - Atualiza automaticamente quando há mudanças no Firebase
 - Mostra apenas clientes com `contratoAtivo: true`
 
 ### ✅ Detalhes do Cliente
+
 Cards expansíveis com:
+
 - Nome e CPF
 - Email
 - Endereço
@@ -83,12 +89,14 @@ Cards expansíveis com:
 - Tipo de cliente
 
 ### ✅ Finalizar Contrato
+
 - Confirmação antes de finalizar
 - Atualiza `contratoAtivo` para `false`
 - Adiciona `dataFinalizacao` com timestamp
 - Cliente desaparece da lista automaticamente
 
 ### ✅ Estados da Interface
+
 - Loading durante carregamento
 - Mensagem quando não há contratos ativos
 - Tratamento de erros
@@ -115,9 +123,11 @@ Cards expansíveis com:
 ## 🔥 Estrutura de Dados no Firestore:
 
 ### Novos Clientes (cadastrados após a atualização):
+
 Já vem com `contratoAtivo: true` automaticamente ✅
 
 ### Estrutura completa:
+
 ```json
 {
   "nome": "João Silva",
@@ -151,14 +161,17 @@ Já vem com `contratoAtivo: true` automaticamente ✅
 ## 🆘 Resolução de Problemas:
 
 ### Lista vazia mesmo com clientes cadastrados?
+
 - Verifique se os clientes têm o campo `contratoAtivo: true`
 - Execute o script de atualização (Opção B acima)
 
 ### Erro ao finalizar contrato?
+
 - Verifique as regras de segurança do Firebase
 - Certifique-se de que o usuário tem permissão de escrita
 
 ### App não compila?
+
 ```bash
 flutter clean
 flutter pub get
@@ -170,6 +183,7 @@ flutter run
 ## 🎯 Resultado Final:
 
 **HomePage** agora tem 4 botões:
+
 1. 📝 Cadastrar Cliente
 2. 👥 Ver Clientes
 3. 📋 **Contratos Ativos** ← NOVO

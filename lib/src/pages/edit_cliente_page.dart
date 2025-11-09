@@ -13,9 +13,6 @@ class EditClientePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return EditClientTemplate(
-      clienteId: clienteId,
-      clienteData: clienteData,
-    );
+    return EditClientTemplate(clienteId: clienteId, clienteData: clienteData);
   }
 }

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import '../organisms/contracts_list_organism.dart';
 
-class ContractsTemplate extends StatelessWidget {
+class ContractsTemplate extends StatefulWidget {
   const ContractsTemplate({super.key});
+
+  @override
+  State<ContractsTemplate> createState() => _ContractsTemplateState();
+}
+
+class _ContractsTemplateState extends State<ContractsTemplate> {
+  bool _expandAll = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +28,17 @@ class ContractsTemplate extends StatelessWidget {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 2,
+        actions: [
+          IconButton(
+            icon: Icon(_expandAll ? Icons.unfold_less : Icons.unfold_more),
+            onPressed: () {
+              setState(() {
+                _expandAll = !_expandAll;
+              });
+            },
+            tooltip: _expandAll ? 'Recolher Todos' : 'Expandir Todos',
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -35,11 +53,7 @@ class ContractsTemplate extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Icon(
-                  Icons.assignment,
-                  size: 48,
-                  color: Colors.green[700],
-                ),
+                Icon(Icons.assignment, size: 48, color: Colors.green[700]),
                 const SizedBox(height: 8),
                 Text(
                   'Esteira de Contratos',
@@ -52,18 +66,13 @@ class ContractsTemplate extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   'Gerencie os contratos ativos dos seus clientes',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[700],
-                  ),
+                  style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                   textAlign: TextAlign.center,
                 ),
               ],
             ),
           ),
-          const Expanded(
-            child: ContractsListOrganism(),
-          ),
+          Expanded(child: ContractsListOrganism(expandAll: _expandAll)),
         ],
       ),
     );

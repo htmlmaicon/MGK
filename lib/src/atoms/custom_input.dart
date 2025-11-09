@@ -5,6 +5,7 @@ class CustomInput extends StatelessWidget {
   final String label;
   final bool obscureText;
   final TextInputType keyboardType;
+  final Function(String)? onChanged;
 
   const CustomInput({
     super.key,
@@ -12,6 +13,7 @@ class CustomInput extends StatelessWidget {
     required this.label,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
+    this.onChanged,
   });
 
   @override
@@ -22,6 +24,7 @@ class CustomInput extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         keyboardType: keyboardType,
+        onChanged: onChanged,
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),

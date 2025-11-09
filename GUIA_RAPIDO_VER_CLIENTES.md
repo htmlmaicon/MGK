@@ -3,9 +3,11 @@
 ## ✨ Novas Funcionalidades:
 
 ### 1️⃣ **Ativar Contrato** 🟢
+
 Faz o cliente aparecer na esteira de contratos ativos.
 
 **Como usar:**
+
 1. Abra "Ver Clientes"
 2. Clique em um cliente para expandir
 3. Clique em **"Ativar Contrato"**
@@ -16,9 +18,11 @@ Faz o cliente aparecer na esteira de contratos ativos.
 ---
 
 ### 2️⃣ **Desativar Contrato** 🟠
+
 Remove o cliente da esteira de contratos ativos.
 
 **Como usar:**
+
 1. Expanda um cliente com contrato ativo
 2. Clique em **"Desativar Contrato"**
 3. Confirme
@@ -28,9 +32,11 @@ Remove o cliente da esteira de contratos ativos.
 ---
 
 ### 3️⃣ **Editar Cliente** 🔵
+
 Altere qualquer informação do cliente.
 
 **Como usar:**
+
 1. Expanda o card do cliente
 2. Clique em **"Editar"**
 3. Modifique os campos desejados
@@ -38,6 +44,7 @@ Altere qualquer informação do cliente.
 5. ✅ Informações atualizadas!
 
 **Campos editáveis:**
+
 - Nome, RG, CPF, Data de Nascimento
 - CEP e Endereço (com busca automática)
 - Nome do Pai e da Mãe
@@ -47,9 +54,11 @@ Altere qualquer informação do cliente.
 ---
 
 ### 4️⃣ **Excluir Cliente** 🔴
+
 Remove permanentemente um cliente do sistema.
 
 **Como usar:**
+
 1. Expanda o card do cliente
 2. Clique em **"Excluir"**
 3. Confirme a exclusão
@@ -80,6 +89,7 @@ Remove permanentemente um cliente do sistema.
 ## 📊 Estados de um Cliente:
 
 ### **Cliente Novo** (Sem Contrato)
+
 ```
 📋 Ver Clientes
 └── João Silva
@@ -88,6 +98,7 @@ Remove permanentemente um cliente do sistema.
 ```
 
 ### **Cliente Ativo** (Com Contrato)
+
 ```
 📋 Ver Clientes
 └── João Silva [ATIVO] ← Badge verde
@@ -100,6 +111,7 @@ Remove permanentemente um cliente do sistema.
 ## 🎨 Interface Visual:
 
 ### **Lista por Categoria:**
+
 ```
 📋 VER CLIENTES
 
@@ -117,10 +129,11 @@ ASSALARIADO
 ```
 
 ### **Card Expandido:**
+
 ```
 👤 João Silva [ATIVO]
     joao@email.com
-    
+
     ▼ EXPANDIDO:
     ┌─────────────────────────────────┐
     │ CPF:      123.456.789-00        │
@@ -137,6 +150,7 @@ ASSALARIADO
 ## 🔄 Integração: Ver Clientes ↔️ Esteira
 
 ### **Ativar Contrato:**
+
 ```
 Ver Clientes               Esteira de Contratos
 ┌───────────┐              ┌───────────┐
@@ -146,6 +160,7 @@ Ver Clientes               Esteira de Contratos
 ```
 
 ### **Desativar Contrato:**
+
 ```
 Ver Clientes               Esteira de Contratos
 ┌───────────┐              ┌───────────┐
@@ -159,19 +174,24 @@ Ver Clientes               Esteira de Contratos
 ## 🆘 Dúvidas Frequentes:
 
 ### ❓ Qual a diferença entre "Desativar Contrato" e "Excluir"?
+
 - **Desativar:** Cliente continua cadastrado, mas sai da esteira
 - **Excluir:** Cliente é removido permanentemente do sistema
 
 ### ❓ Posso reativar um contrato desativado?
+
 - ✅ Sim! Basta clicar em "Ativar Contrato" novamente
 
 ### ❓ O que acontece se eu editar um cliente com contrato ativo?
+
 - ✅ Ele continua ativo na esteira com os dados atualizados
 
 ### ❓ Posso excluir um cliente com contrato ativo?
+
 - ✅ Sim, mas ele será removido da esteira também
 
 ### ❓ Como sei se um cliente tem contrato ativo?
+
 - 📍 Badge verde **[ATIVO]** ao lado do nome
 - 📍 Botão laranja "Desativar Contrato"
 
@@ -180,18 +200,23 @@ Ver Clientes               Esteira de Contratos
 ## ⚡ Atalhos e Dicas:
 
 ### 💡 **Dica 1:** Badge Visual
+
 O badge **[ATIVO]** aparece automaticamente quando você ativa o contrato. Não precisa atualizar a página!
 
 ### 💡 **Dica 2:** Busca de CEP
+
 Ao editar um cliente, você pode buscar o endereço pelo CEP automaticamente.
 
 ### 💡 **Dica 3:** Confirmação de Segurança
+
 Todas as ações críticas (excluir, ativar, desativar) pedem confirmação. Leia com atenção!
 
 ### 💡 **Dica 4:** Ordem Alfabética
+
 Os clientes são exibidos em ordem alfabética dentro de cada categoria.
 
 ### 💡 **Dica 5:** Feedback Visual
+
 Após cada ação, uma mensagem aparece confirmando o sucesso ou erro.
 
 ---
@@ -199,6 +224,7 @@ Após cada ação, uma mensagem aparece confirmando o sucesso ou erro.
 ## 🎯 Casos de Uso:
 
 ### **Caso 1: Cliente Assinou Contrato**
+
 ```
 1. Ver Clientes
 2. Localizar o cliente
@@ -207,6 +233,7 @@ Após cada ação, uma mensagem aparece confirmando o sucesso ou erro.
 ```
 
 ### **Caso 2: Contrato Foi Finalizado**
+
 ```
 1. Ver Clientes (ou Esteira de Contratos)
 2. Expandir cliente
@@ -215,6 +242,7 @@ Após cada ação, uma mensagem aparece confirmando o sucesso ou erro.
 ```
 
 ### **Caso 3: Correção de Dados**
+
 ```
 1. Ver Clientes
 2. Expandir cliente
@@ -224,6 +252,7 @@ Após cada ação, uma mensagem aparece confirmando o sucesso ou erro.
 ```
 
 ### **Caso 4: Cliente Cancelou Definitivamente**
+
 ```
 1. Ver Clientes
 2. Expandir cliente
@@ -236,18 +265,19 @@ Após cada ação, uma mensagem aparece confirmando o sucesso ou erro.
 
 ## 📱 Resumo das Ações:
 
-| Ação | Botão | Cor | O que faz |
-|------|-------|-----|-----------|
-| **Ativar Contrato** | 🟢 | Verde | Cliente vai para a esteira |
-| **Desativar Contrato** | 🟠 | Laranja | Cliente sai da esteira |
-| **Editar** | 🔵 | Azul | Abre formulário de edição |
-| **Excluir** | 🔴 | Vermelho | Remove cliente (permanente) |
+| Ação                   | Botão | Cor      | O que faz                   |
+| ---------------------- | ----- | -------- | --------------------------- |
+| **Ativar Contrato**    | 🟢    | Verde    | Cliente vai para a esteira  |
+| **Desativar Contrato** | 🟠    | Laranja  | Cliente sai da esteira      |
+| **Editar**             | 🔵    | Azul     | Abre formulário de edição   |
+| **Excluir**            | 🔴    | Vermelho | Remove cliente (permanente) |
 
 ---
 
 ## 🚀 Pronto para Usar!
 
 Agora você tem **controle total** sobre seus clientes:
+
 - ✅ Cadastrar
 - ✅ Visualizar
 - ✅ Editar

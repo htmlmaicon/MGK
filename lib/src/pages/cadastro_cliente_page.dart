@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 import '../templates/form_template.dart';
+import '../utils/auth_service.dart';
 
 class CadastroClientePage extends StatelessWidget {
+  final AuthService _authService = AuthService();
+
+  CadastroClientePage({super.key});
+
   void _abrirFormulario(BuildContext context, String tipoCliente) {
+    // Verificar permissão
+    if (!_authService.canCreateClient()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AuthService.getPermissionDeniedMessage()),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -13,6 +30,20 @@ class CadastroClientePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Verificar permissão ao entrar na página
+    if (!_authService.canCreateClient()) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AuthService.getPermissionDeniedMessage()),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+        Navigator.pop(context);
+      });
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -50,10 +81,16 @@ class CadastroClientePage extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () => _abrirFormulario(context, 'Agricultor'),
                 icon: const Icon(Icons.agriculture, color: Colors.white),
-                label: const Text('Agricultor', style: TextStyle(color: Colors.white)),
+                label: const Text(
+                  'Agricultor',
+                  style: TextStyle(color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[800],
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 20,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -66,10 +103,16 @@ class CadastroClientePage extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () => _abrirFormulario(context, 'Assalariado'),
                 icon: const Icon(Icons.work, color: Colors.white),
-                label: const Text('Assalariado', style: TextStyle(color: Colors.white)),
+                label: const Text(
+                  'Assalariado',
+                  style: TextStyle(color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[800],
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 20,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -80,12 +123,19 @@ class CadastroClientePage extends StatelessWidget {
 
               // Botão Aposentado/Pensionista
               ElevatedButton.icon(
-                onPressed: () => _abrirFormulario(context, 'Aposentado/Pensionista'),
+                onPressed: () =>
+                    _abrirFormulario(context, 'Aposentado/Pensionista'),
                 icon: const Icon(Icons.elderly, color: Colors.white),
-                label: const Text('Aposentado/Pensionista', style: TextStyle(color: Colors.white)),
+                label: const Text(
+                  'Aposentado/Pensionista',
+                  style: TextStyle(color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[800],
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 20,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
