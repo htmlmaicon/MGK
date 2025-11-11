@@ -16,22 +16,25 @@ class SolicitacaoViewModel extends ChangeNotifier {
   SolicitacaoViewModel({
     required SolicitacaoRepository solicitacaoRepository,
     required AuthRepository authRepository,
-  })  : _solicitacaoRepository = solicitacaoRepository,
-        _authRepository = authRepository {
+  }) : _solicitacaoRepository = solicitacaoRepository,
+       _authRepository = authRepository {
     _initialize();
   }
 
   // Getters
   List<SolicitacaoModel> get solicitacoes => _solicitacoes;
 
-  List<SolicitacaoModel> get solicitacoesPendentes =>
-      _solicitacoes.where((s) => s.status == SolicitacaoStatus.pendente).toList();
+  List<SolicitacaoModel> get solicitacoesPendentes => _solicitacoes
+      .where((s) => s.status == SolicitacaoStatus.pendente)
+      .toList();
 
-  List<SolicitacaoModel> get solicitacoesAprovadas =>
-      _solicitacoes.where((s) => s.status == SolicitacaoStatus.aprovada).toList();
+  List<SolicitacaoModel> get solicitacoesAprovadas => _solicitacoes
+      .where((s) => s.status == SolicitacaoStatus.aprovada)
+      .toList();
 
-  List<SolicitacaoModel> get solicitacoesRejeitadas =>
-      _solicitacoes.where((s) => s.status == SolicitacaoStatus.rejeitada).toList();
+  List<SolicitacaoModel> get solicitacoesRejeitadas => _solicitacoes
+      .where((s) => s.status == SolicitacaoStatus.rejeitada)
+      .toList();
 
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;

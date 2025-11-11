@@ -13,7 +13,7 @@ class ClienteViewModel extends ChangeNotifier {
   String _searchQuery = '';
 
   ClienteViewModel({required ClienteRepository clienteRepository})
-      : _clienteRepository = clienteRepository {
+    : _clienteRepository = clienteRepository {
     _initialize();
   }
 
@@ -21,11 +21,13 @@ class ClienteViewModel extends ChangeNotifier {
   List<ClienteModel> get clientes => _searchQuery.isEmpty
       ? _clientes
       : _clientes
-          .where((c) =>
-              c.nome.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-              c.cpf.contains(_searchQuery) ||
-              c.email.toLowerCase().contains(_searchQuery.toLowerCase()))
-          .toList();
+            .where(
+              (c) =>
+                  c.nome.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+                  c.cpf.contains(_searchQuery) ||
+                  c.email.toLowerCase().contains(_searchQuery.toLowerCase()),
+            )
+            .toList();
 
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;

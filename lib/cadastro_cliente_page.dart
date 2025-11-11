@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'formulario.dart';
 
 class CadastroClientePage extends StatelessWidget {
+  const CadastroClientePage({super.key});
+
   void _abrirFormulario(BuildContext context, String tipoCliente) {
     Navigator.push(
       context,

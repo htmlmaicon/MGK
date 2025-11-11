@@ -7,7 +7,7 @@ class ClienteDataSource {
   static const String _collection = 'clientes';
 
   ClienteDataSource({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
   /// Busca todos os clientes
   Future<List<ClienteModel>> getAll() async {
@@ -41,9 +41,9 @@ class ClienteDataSource {
   /// Adiciona um novo cliente
   Future<String> add(ClienteModel cliente) async {
     try {
-      final docRef = await _firestore.collection(_collection).add(
-            cliente.toMap(),
-          );
+      final docRef = await _firestore
+          .collection(_collection)
+          .add(cliente.toMap());
       return docRef.id;
     } catch (e) {
       throw Exception('Erro ao adicionar cliente: $e');
@@ -53,9 +53,7 @@ class ClienteDataSource {
   /// Atualiza um cliente existente
   Future<void> update(String id, ClienteModel cliente) async {
     try {
-      await _firestore.collection(_collection).doc(id).update(
-            cliente.toMap(),
-          );
+      await _firestore.collection(_collection).doc(id).update(cliente.toMap());
     } catch (e) {
       throw Exception('Erro ao atualizar cliente: $e');
     }
@@ -93,8 +91,10 @@ class ClienteDataSource {
         .collection(_collection)
         .orderBy('dataCadastro', descending: true)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => ClienteModel.fromMap(doc.data(), doc.id))
-            .toList());
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => ClienteModel.fromMap(doc.data(), doc.id))
+              .toList(),
+        );
   }
 }

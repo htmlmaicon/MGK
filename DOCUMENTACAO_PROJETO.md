@@ -1,6 +1,7 @@
 # Documentação do Projeto - MGK Sistema de Cadastro
 
 ## Projeto Integrador - Desenvolvimento Mobile com Dart e Flutter
+
 **Disciplina:** Desenvolvimento Mobile  
 **Data de Entrega:** 07/11/2024  
 **Equipe:** MGK
@@ -43,13 +44,16 @@ O projeto segue os princípios da **Clean Architecture** combinada com o padrão
 ### Camadas da Arquitetura
 
 #### 1. **Domain (Domínio)**
+
 Camada central que contém a lógica de negócio e é independente de frameworks externos.
 
 **Componentes:**
+
 - **Models:** Entidades de negócio (`ClienteModel`, `UserModel`, `SolicitacaoModel`)
 - **Repositories (Interfaces):** Contratos que definem operações de dados
 
 **Princípios:**
+
 - ✅ Independente de frameworks
 - ✅ Contém regras de negócio
 - ✅ Define contratos através de interfaces
@@ -66,13 +70,16 @@ class ClienteModel {
 ```
 
 #### 2. **Data (Dados)**
+
 Camada responsável pela implementação concreta dos repositórios e acesso a dados.
 
 **Componentes:**
+
 - **DataSources:** Comunicação direta com APIs externas (Firebase)
 - **Repositories Implementation:** Implementação dos contratos definidos no domínio
 
 **Responsabilidades:**
+
 - ✅ Comunicação com Firebase
 - ✅ Transformação de dados externos para modelos de domínio
 - ✅ Tratamento de erros de rede/persistência
@@ -81,10 +88,10 @@ Camada responsável pela implementação concreta dos repositórios e acesso a d
 // Exemplo: DataSource
 class ClienteDataSource {
   final FirebaseFirestore _firestore;
-  
+
   Future<List<ClienteModel>> getAll() async {
     final snapshot = await _firestore.collection('clientes').get();
-    return snapshot.docs.map((doc) => 
+    return snapshot.docs.map((doc) =>
       ClienteModel.fromMap(doc.data(), doc.id)
     ).toList();
   }
@@ -92,9 +99,11 @@ class ClienteDataSource {
 ```
 
 #### 3. **Presentation (Apresentação)**
+
 Camada de interface do usuário e gerenciamento de estado.
 
 **Componentes:**
+
 - **ViewModels:** Gerenciam estado da UI usando `ChangeNotifier`
 - **Pages:** Telas completas da aplicação
 - **Templates:** Estruturas de layout reutilizáveis
@@ -103,6 +112,7 @@ Camada de interface do usuário e gerenciamento de estado.
 - **Atoms:** Componentes UI básicos
 
 **Organização (Atomic Design):**
+
 ```
 presentation/
 ├── viewmodels/        # Lógica de apresentação
@@ -147,6 +157,7 @@ presentation/
 ## Gerenciamento de Estado
 
 O projeto utiliza **Provider** como solução de gerenciamento de estado, oferecendo:
+
 - ✅ Reatividade eficiente
 - ✅ Injeção de dependência simples
 - ✅ Fácil testabilidade
@@ -159,14 +170,14 @@ O projeto utiliza **Provider** como solução de gerenciamento de estado, oferec
 ```dart
 class AuthViewModel extends ChangeNotifier {
   final AuthRepository _authRepository;
-  
+
   UserModel? _currentUser;
   bool _isLoading = false;
-  
+
   // Getters
   UserModel? get currentUser => _currentUser;
   bool get isLoading => _isLoading;
-  
+
   // Métodos que notificam mudanças
   Future<bool> signIn(String email, String password) async {
     _setLoading(true);
@@ -174,7 +185,7 @@ class AuthViewModel extends ChangeNotifier {
     _setLoading(false);
     return _currentUser != null;
   }
-  
+
   void _setLoading(bool value) {
     _isLoading = value;
     notifyListeners(); // Notifica widgets observadores
@@ -208,20 +219,26 @@ final authViewModel = context.read<AuthViewModel>();
 ### ViewModels Implementados
 
 #### 1. **AuthViewModel**
+
 Gerencia autenticação e permissões
+
 - Login/Logout
 - Verificação de permissões (Admin/Usuário)
 - Criação de novos usuários
 
 #### 2. **ClienteViewModel**
+
 Gerencia operações CRUD de clientes
+
 - Listar clientes
 - Adicionar/Editar/Remover clientes
 - Pesquisa de clientes
 - Stream de atualizações em tempo real
 
 #### 3. **SolicitacaoViewModel**
+
 Gerencia solicitações de cadastro
+
 - Listar solicitações pendentes
 - Aprovar/Rejeitar solicitações
 - Criar novas solicitações
@@ -242,7 +259,7 @@ class DependencyInjection {
     Provider<ClienteDataSource>(create: (_) => ClienteDataSource()),
     // ... outros datasources
   ];
-  
+
   // ViewModels
   static List<ChangeNotifierProvider> get changeNotifierProviders => [
     ChangeNotifierProvider<AuthViewModel>(
@@ -261,7 +278,7 @@ class DependencyInjection {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  
+
   runApp(
     MultiProvider(
       providers: [
@@ -294,12 +311,14 @@ O projeto implementa uma estratégia completa de testes automatizados.
 Testam a lógica de negócio isoladamente.
 
 **Cobertura:**
+
 - ✅ Modelos de domínio (`ClienteModel`, `UserModel`, `SolicitacaoModel`)
 - ✅ Validadores (CPF, Email, Senha, Telefone)
 - ✅ Conversão de dados (toMap, fromMap)
 - ✅ Lógica de copyWith e comparação
 
 **Exemplo:**
+
 ```dart
 test('Deve validar CPF correto', () {
   expect(Validators.isValidCPF('12345678909'), true);
@@ -312,7 +331,7 @@ test('Deve criar ClienteModel corretamente', () {
     cpf: '12345678900',
     email: 'joao@email.com',
   );
-  
+
   expect(cliente.nome, 'João Silva');
   expect(cliente.cpf, '12345678900');
 });
@@ -323,16 +342,18 @@ test('Deve criar ClienteModel corretamente', () {
 Testam componentes UI e suas interações.
 
 **Cobertura:**
+
 - ✅ `CustomButton` - Botão personalizado
 - ✅ `LoginField` - Campo de login
 - ✅ Callbacks e interações do usuário
 - ✅ Acessibilidade (Semantics)
 
 **Exemplo:**
+
 ```dart
 testWidgets('Deve executar callback ao ser pressionado', (tester) async {
   bool wasPressed = false;
-  
+
   await tester.pumpWidget(
     MaterialApp(
       home: Scaffold(
@@ -343,10 +364,10 @@ testWidgets('Deve executar callback ao ser pressionado', (tester) async {
       ),
     ),
   );
-  
+
   await tester.tap(find.byType(CustomButton));
   await tester.pump();
-  
+
   expect(wasPressed, true);
 });
 ```
@@ -546,11 +567,13 @@ Este projeto demonstra a aplicação prática de conceitos avançados de desenvo
 ### Requisitos Atendidos ✅
 
 1. **Refatoração para Arquitetura:**
+
    - ✅ Clean Architecture implementada
    - ✅ MVVM aplicado com separação clara de camadas
    - ✅ Domain, Data e Presentation bem definidos
 
 2. **Gerenciamento de Estado Avançado:**
+
    - ✅ Provider implementado com MultiProvider
    - ✅ ViewModels com ChangeNotifier
    - ✅ Dependency Injection centralizada

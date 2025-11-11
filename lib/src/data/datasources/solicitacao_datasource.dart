@@ -7,7 +7,7 @@ class SolicitacaoDataSource {
   static const String _collection = 'solicitacoes_cadastro';
 
   SolicitacaoDataSource({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
   /// Busca todas as solicitações pendentes
   Future<List<SolicitacaoModel>> getPendentes() async {
@@ -58,9 +58,9 @@ class SolicitacaoDataSource {
   /// Cria uma nova solicitação
   Future<String> create(SolicitacaoModel solicitacao) async {
     try {
-      final docRef = await _firestore.collection(_collection).add(
-            solicitacao.toMap(),
-          );
+      final docRef = await _firestore
+          .collection(_collection)
+          .add(solicitacao.toMap());
       return docRef.id;
     } catch (e) {
       throw Exception('Erro ao criar solicitação: $e');
@@ -99,8 +99,10 @@ class SolicitacaoDataSource {
         .collection(_collection)
         .orderBy('solicitadoEm', descending: true)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => SolicitacaoModel.fromMap(doc.data(), doc.id))
-            .toList());
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => SolicitacaoModel.fromMap(doc.data(), doc.id))
+              .toList(),
+        );
   }
 }

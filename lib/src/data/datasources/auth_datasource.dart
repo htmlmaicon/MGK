@@ -9,11 +9,9 @@ class AuthDataSource {
 
   static const String adminEmail = 'admin@gmail.com';
 
-  AuthDataSource({
-    FirebaseAuth? firebaseAuth,
-    FirebaseFirestore? firestore,
-  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _firestore = firestore ?? FirebaseFirestore.instance;
+  AuthDataSource({FirebaseAuth? firebaseAuth, FirebaseFirestore? firestore})
+    : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+      _firestore = firestore ?? FirebaseFirestore.instance;
 
   /// Realiza login com email e senha
   Future<UserModel?> signIn(String email, String password) async {

@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'src/core/services/notification_service.dart';
 
 class FormularioPage extends StatefulWidget {
   final String tipoCliente;
@@ -98,7 +101,11 @@ class _FormularioPageState extends State<FormularioPage> {
                   ),
                   IconButton(
                     icon: const Icon(Icons.search, color: Colors.green),
-                    onPressed: () => buscarCep(cepController.text),
+                    onPressed: () {
+                      // Remove a máscara antes de buscar
+                      String cep = cepController.text.replaceAll(RegExp(r'[^0-9]'), '');
+                      buscarCep(cep);
+                    },
                   )
                 ],
               ),
@@ -139,16 +146,74 @@ class _FormularioPageState extends State<FormularioPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Formulário enviado com sucesso!")),
-                    );
+                    try {
+                      // Remove máscara do CPF para salvar no banco
+                      String cpfLimpo = cpfController.text.replaceAll(RegExp(r'[^0-9]'), '');
+                      
+                      // Salva o cliente no Firestore
+                      await FirebaseFirestore.instance
+                          .collection('clientes')
+                          .doc(cpfLimpo)
+                          .set({
+                        'nome': nomeController.text,
+                        'rg': rgController.text,
+                        'cpf': cpfLimpo,
+                        'dataNascimento': nascimentoController.text,
+                        'cep': cepController.text,
+                        'endereco': enderecoController.text,
+                        'pai': paiController.text,
+                        'mae': maeController.text,
+                        'dataExpedicao': expedicaoController.text,
+                        'emissor': emissorController.text,
+                        'renda': rendaController.text,
+                        'email': emailController.text,
+                        'tipoCliente': widget.tipoCliente,
+                        'status': 'pendente',
+                        'dataCadastro': FieldValue.serverTimestamp(),
+                      });
+
+                      // Salva o token FCM para receber notificações (apenas em mobile)
+                      if (!kIsWeb) {
+                        try {
+                          await NotificationService().salvarTokenNoFirestore(cpfLimpo);
+                          // Inicia monitoramento de mudanças de status
+                          NotificationService().monitorarStatusCliente(cpfLimpo);
+                        } catch (e) {
+                          // Erro ao configurar notificações
+                        }
+                      }
+
+                      if (mounted) {
+                        String mensagem = kIsWeb 
+                          ? "Formulário enviado com sucesso!"
+                          : "Formulário enviado com sucesso! Você receberá uma notificação quando for aprovado.";
+                        
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(mensagem),
+                            backgroundColor: Colors.green,
+                            duration: const Duration(seconds: 5),
+                          ),
+                        );
+                        Navigator.pop(context);
+                      }
+                    } catch (e) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Erro ao enviar formulário: $e"),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[800],
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
                 child: const Text("Enviar", style: TextStyle(color: Colors.white)),
               ),

@@ -12,7 +12,7 @@ class AuthViewModel extends ChangeNotifier {
   String? _errorMessage;
 
   AuthViewModel({required AuthRepository authRepository})
-      : _authRepository = authRepository {
+    : _authRepository = authRepository {
     _initialize();
   }
 

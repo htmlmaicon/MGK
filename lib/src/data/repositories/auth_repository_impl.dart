@@ -8,7 +8,7 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource _dataSource;
 
   AuthRepositoryImpl({required AuthDataSource dataSource})
-      : _dataSource = dataSource;
+    : _dataSource = dataSource;
 
   @override
   Future<UserModel?> signIn(String email, String password) {

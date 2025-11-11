@@ -8,7 +8,7 @@ class SolicitacaoRepositoryImpl implements SolicitacaoRepository {
   final SolicitacaoDataSource _dataSource;
 
   SolicitacaoRepositoryImpl({required SolicitacaoDataSource dataSource})
-      : _dataSource = dataSource;
+    : _dataSource = dataSource;
 
   @override
   Future<List<SolicitacaoModel>> getPendentes() {

@@ -5,16 +5,13 @@ import 'package:mgk/src/atoms/custom_button.dart';
 void main() {
   group('CustomButton Widget Tests', () {
     testWidgets('Deve renderizar botão com texto correto', (tester) async {
-      // Arrange
-      bool wasPressed = false;
-
       // Act
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: CustomButton(
               text: 'Entrar',
-              onPressed: () => wasPressed = true,
+              onPressed: () {},
             ),
           ),
         ),
@@ -75,8 +72,9 @@ void main() {
       expect(decoration.color, Colors.blue);
     });
 
-    testWidgets('Deve renderizar com texto em cor personalizada',
-        (tester) async {
+    testWidgets('Deve renderizar com texto em cor personalizada', (
+      tester,
+    ) async {
       // Act
       await tester.pumpWidget(
         MaterialApp(
@@ -95,8 +93,7 @@ void main() {
       expect(textWidget.style?.color, Colors.red);
     });
 
-    testWidgets('Deve renderizar com ícone quando fornecido',
-        (tester) async {
+    testWidgets('Deve renderizar com ícone quando fornecido', (tester) async {
       // Act
       await tester.pumpWidget(
         MaterialApp(
@@ -115,26 +112,21 @@ void main() {
       expect(find.text('Com Ícone'), findsOneWidget);
     });
 
-    testWidgets('Deve ter semântica apropriada para acessibilidade',
-        (tester) async {
+    testWidgets('Deve ter semântica apropriada para acessibilidade', (
+      tester,
+    ) async {
       // Act
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomButton(
-              text: 'Acessível',
-              onPressed: () {},
-            ),
+            body: CustomButton(text: 'Acessível', onPressed: () {}),
           ),
         ),
       );
 
       // Assert
       final semantics = tester.getSemantics(find.byType(Semantics).first);
-      expect(
-        semantics.label,
-        contains('Acessível'),
-      );
+      expect(semantics.label, contains('Acessível'));
     });
 
     testWidgets('Deve ter tamanho de fonte personalizável', (tester) async {
@@ -184,16 +176,14 @@ void main() {
       expect(container.padding, customPadding);
     });
 
-    testWidgets('Deve renderizar sem ícone quando não fornecido',
-        (tester) async {
+    testWidgets('Deve renderizar sem ícone quando não fornecido', (
+      tester,
+    ) async {
       // Act
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomButton(
-              text: 'Sem Ícone',
-              onPressed: () {},
-            ),
+            body: CustomButton(text: 'Sem Ícone', onPressed: () {}),
           ),
         ),
       );

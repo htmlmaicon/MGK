@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class VerClientesPage extends StatelessWidget {
-  final List<String> clientes = [
+  const VerClientesPage({super.key});
+
+  final List<String> clientes = const [
     'João Silva',
     'Maria Oliveira',
     'Carlos Souza',

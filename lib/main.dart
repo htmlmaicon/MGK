@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'src/pages/home_page.dart';
@@ -7,14 +8,32 @@ import 'src/pages/login_page.dart';
 import 'src/pages/contratos_ativos_page.dart';
 import 'src/pages/solicitacoes_cadastro_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'src/core/dependency_injection.dart';
+import 'src/core/services/notification_service.dart';
 
 /// Função principal da aplicação
-/// Inicializa Firebase e configura Dependency Injection com Provider
+/// Inicializa Firebase, Notificações e configura Dependency Injection com Provider
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Inicializa Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
+  // Inicializa notificações apenas em mobile (não funciona na web)
+  if (!kIsWeb) {
+    // Configura handler de mensagens em background
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    
+    // Inicializa serviço de notificações
+    try {
+      await NotificationService().initialize();
+    } catch (e) {
+      print('Erro ao inicializar notificações: $e');
+    }
+  }
+  
   runApp(const MyApp());
 }
 

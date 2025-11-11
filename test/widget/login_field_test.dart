@@ -12,10 +12,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: LoginField(
-              controller: controller,
-              label: 'Email',
-            ),
+            body: LoginField(controller: controller, label: 'Email'),
           ),
         ),
       );
@@ -33,10 +30,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: LoginField(
-              controller: controller,
-              label: 'Nome',
-            ),
+            body: LoginField(controller: controller, label: 'Nome'),
           ),
         ),
       );
@@ -50,8 +44,7 @@ void main() {
       expect(find.text('João Silva'), findsOneWidget);
     });
 
-    testWidgets('Deve ocultar texto quando isPassword é true',
-        (tester) async {
+    testWidgets('Deve ocultar texto quando isPassword é true', (tester) async {
       // Arrange
       final controller = TextEditingController();
 
@@ -73,8 +66,9 @@ void main() {
       expect(textField.obscureText, true);
     });
 
-    testWidgets('Não deve ocultar texto quando isPassword é false',
-        (tester) async {
+    testWidgets('Não deve ocultar texto quando isPassword é false', (
+      tester,
+    ) async {
       // Arrange
       final controller = TextEditingController();
 
@@ -96,8 +90,9 @@ void main() {
       expect(textField.obscureText, false);
     });
 
-    testWidgets('Deve chamar callback onChanged quando texto mudar',
-        (tester) async {
+    testWidgets('Deve chamar callback onChanged quando texto mudar', (
+      tester,
+    ) async {
       // Arrange
       final controller = TextEditingController();
       String? changedText;
@@ -123,8 +118,9 @@ void main() {
       expect(changedText, 'Teste');
     });
 
-    testWidgets('Deve limpar texto quando controller for limpo',
-        (tester) async {
+    testWidgets('Deve limpar texto quando controller for limpo', (
+      tester,
+    ) async {
       // Arrange
       final controller = TextEditingController(text: 'Texto inicial');
 
@@ -132,10 +128,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: LoginField(
-              controller: controller,
-              label: 'Campo',
-            ),
+            body: LoginField(controller: controller, label: 'Campo'),
           ),
         ),
       );
@@ -160,10 +153,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: LoginField(
-              controller: controller,
-              label: 'Campo com foco',
-            ),
+            body: LoginField(controller: controller, label: 'Campo com foco'),
           ),
         ),
       );
@@ -182,8 +172,9 @@ void main() {
       expect(textField.controller?.text, 'Texto');
     });
 
-    testWidgets('Deve renderizar múltiplos LoginFields independentemente',
-        (tester) async {
+    testWidgets('Deve renderizar múltiplos LoginFields independentemente', (
+      tester,
+    ) async {
       // Arrange
       final emailController = TextEditingController();
       final senhaController = TextEditingController();
@@ -194,10 +185,7 @@ void main() {
           home: Scaffold(
             body: Column(
               children: [
-                LoginField(
-                  controller: emailController,
-                  label: 'Email',
-                ),
+                LoginField(controller: emailController, label: 'Email'),
                 LoginField(
                   controller: senhaController,
                   label: 'Senha',

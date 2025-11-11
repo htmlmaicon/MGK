@@ -34,6 +34,7 @@ test/
 Testa a entidade de domínio `ClienteModel`.
 
 **Casos de Teste:**
+
 - ✅ Criação correta do modelo
 - ✅ Conversão para Map
 - ✅ Criação a partir de Map
@@ -51,7 +52,7 @@ test('Deve criar ClienteModel corretamente', () {
     email: 'joao@email.com',
     dataCadastro: DateTime(2024, 1, 1),
   );
-  
+
   expect(cliente.nome, 'João Silva');
   expect(cliente.cpf, '12345678900');
 });
@@ -62,6 +63,7 @@ test('Deve criar ClienteModel corretamente', () {
 Testa a entidade de domínio `UserModel`.
 
 **Casos de Teste:**
+
 - ✅ Criação de usuário comum
 - ✅ Criação de usuário admin
 - ✅ Conversão para Map
@@ -76,6 +78,7 @@ Testa a entidade de domínio `UserModel`.
 Testa a entidade de domínio `SolicitacaoModel` e enum `SolicitacaoStatus`.
 
 **Casos de Teste:**
+
 - ✅ Criação correta do modelo
 - ✅ Status padrão (pendente)
 - ✅ Conversão para Map
@@ -93,6 +96,7 @@ Testa a lógica de negócio de validações.
 **Validações Implementadas:**
 
 #### CPF (5 testes)
+
 - ✅ Valida CPF correto
 - ✅ Rejeita CPF inválido
 - ✅ Rejeita CPF com menos de 11 dígitos
@@ -107,18 +111,22 @@ test('Deve validar CPF correto', () {
 ```
 
 #### Email (2 testes)
+
 - ✅ Valida email correto
 - ✅ Rejeita email inválido
 
 #### Senha (2 testes)
+
 - ✅ Valida senha com mínimo 6 caracteres
 - ✅ Rejeita senha com menos de 6 caracteres
 
 #### Nome (2 testes)
+
 - ✅ Valida nome correto
 - ✅ Rejeita nome inválido
 
 #### Telefone (2 testes)
+
 - ✅ Valida telefone brasileiro
 - ✅ Rejeita telefone inválido
 
@@ -131,6 +139,7 @@ test('Deve validar CPF correto', () {
 Testa o componente `CustomButton` (Atom).
 
 **Casos de Teste:**
+
 - ✅ Renderização com texto correto
 - ✅ Execução de callback ao pressionar
 - ✅ Cor personalizada de fundo
@@ -144,7 +153,7 @@ Testa o componente `CustomButton` (Atom).
 ```dart
 testWidgets('Deve executar callback ao ser pressionado', (tester) async {
   bool wasPressed = false;
-  
+
   await tester.pumpWidget(
     MaterialApp(
       home: Scaffold(
@@ -155,10 +164,10 @@ testWidgets('Deve executar callback ao ser pressionado', (tester) async {
       ),
     ),
   );
-  
+
   await tester.tap(find.byType(CustomButton));
   await tester.pump();
-  
+
   expect(wasPressed, true);
 });
 ```
@@ -168,6 +177,7 @@ testWidgets('Deve executar callback ao ser pressionado', (tester) async {
 Testa o componente `LoginField` (Molecule).
 
 **Casos de Teste:**
+
 - ✅ Renderização com label
 - ✅ Aceitação de entrada de texto
 - ✅ Ocultação de texto (senha)
@@ -179,7 +189,7 @@ Testa o componente `LoginField` (Molecule).
 ```dart
 testWidgets('Deve ocultar texto quando isPassword é true', (tester) async {
   final controller = TextEditingController();
-  
+
   await tester.pumpWidget(
     MaterialApp(
       home: Scaffold(
@@ -191,7 +201,7 @@ testWidgets('Deve ocultar texto quando isPassword é true', (tester) async {
       ),
     ),
   );
-  
+
   final textField = tester.widget<TextField>(find.byType(TextField));
   expect(textField.obscureText, true);
 });
@@ -317,10 +327,10 @@ start coverage/html/index.html
 test('Descrição do teste', () {
   // Arrange - Preparação
   final model = ClienteModel(nome: 'Teste');
-  
+
   // Act - Ação
   final result = model.nome;
-  
+
   // Assert - Verificação
   expect(result, 'Teste');
 });
@@ -357,21 +367,25 @@ class MockTimestamp {
 ## Benefícios dos Testes Implementados
 
 ### Confiabilidade
+
 - ✅ Detecção precoce de bugs
 - ✅ Garantia de funcionamento correto
 - ✅ Prevenção de regressões
 
 ### Documentação
+
 - ✅ Testes servem como documentação viva
 - ✅ Exemplos de uso dos componentes
 - ✅ Especificação do comportamento esperado
 
 ### Manutenibilidade
+
 - ✅ Refatoração segura
 - ✅ Mudanças com confiança
 - ✅ Feedback rápido
 
 ### Qualidade
+
 - ✅ Código mais robusto
 - ✅ Melhor design (testável)
 - ✅ Menos bugs em produção
@@ -383,16 +397,19 @@ class MockTimestamp {
 ### Testes a Implementar
 
 1. **Testes de Integração**
+
    - Fluxo completo de autenticação
    - CRUD completo de clientes
    - Solicitações de cadastro end-to-end
 
 2. **Testes de ViewModel**
+
    - AuthViewModel com mock repository
    - ClienteViewModel com mock repository
    - SolicitacaoViewModel com mock repository
 
 3. **Testes de Repository**
+
    - Repository implementations com mock datasources
    - Tratamento de erros
    - Streams

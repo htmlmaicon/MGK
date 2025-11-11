@@ -241,11 +241,13 @@ MultiProvider
 ## Benefícios da Arquitetura
 
 ### 1. Separação de Responsabilidades
+
 - **Presentation:** Apenas UI e interação com usuário
 - **Domain:** Lógica de negócio pura
 - **Data:** Acesso e persistência de dados
 
 ### 2. Testabilidade
+
 ```
 ✓ ViewModels → Testar lógica de apresentação (mock repositories)
 ✓ Repositories → Testar conversão de dados (mock datasources)
@@ -255,16 +257,19 @@ MultiProvider
 ```
 
 ### 3. Manutenibilidade
+
 - Mudanças isoladas em cada camada
 - Fácil identificação de bugs
 - Código organizado e previsível
 
 ### 4. Escalabilidade
+
 - Fácil adição de novas features
 - Reutilização de componentes
 - Substituição de tecnologias sem afetar outras camadas
 
 ### 5. Independência de Frameworks
+
 - Domain Layer não conhece Flutter
 - Fácil migração para outras plataformas
 - Lógica de negócio reutilizável
@@ -274,31 +279,37 @@ MultiProvider
 ## Convenções de Nomenclatura
 
 ### Models
+
 ```
 ClienteModel, UserModel, SolicitacaoModel
 ```
 
 ### Repositories (Interface)
+
 ```
 AuthRepository, ClienteRepository, SolicitacaoRepository
 ```
 
 ### Repositories (Implementation)
+
 ```
 AuthRepositoryImpl, ClienteRepositoryImpl, SolicitacaoRepositoryImpl
 ```
 
 ### DataSources
+
 ```
 AuthDataSource, ClienteDataSource, SolicitacaoDataSource
 ```
 
 ### ViewModels
+
 ```
 AuthViewModel, ClienteViewModel, SolicitacaoViewModel
 ```
 
 ### Widgets
+
 ```
 HomePage, LoginPage, CustomButton, LoginField
 ```
@@ -308,6 +319,7 @@ HomePage, LoginPage, CustomButton, LoginField
 ## Conclusão
 
 Esta arquitetura garante:
+
 - ✅ Código limpo e organizado
 - ✅ Fácil manutenção e evolução
 - ✅ Alta testabilidade

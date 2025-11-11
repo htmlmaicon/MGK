@@ -19,21 +19,14 @@ class DependencyInjection {
   static List<Provider> get providers {
     return [
       // DataSources
-      Provider<AuthDataSource>(
-        create: (_) => AuthDataSource(),
-      ),
-      Provider<ClienteDataSource>(
-        create: (_) => ClienteDataSource(),
-      ),
-      Provider<SolicitacaoDataSource>(
-        create: (_) => SolicitacaoDataSource(),
-      ),
+      Provider<AuthDataSource>(create: (_) => AuthDataSource()),
+      Provider<ClienteDataSource>(create: (_) => ClienteDataSource()),
+      Provider<SolicitacaoDataSource>(create: (_) => SolicitacaoDataSource()),
 
       // Repositories
       Provider<AuthRepository>(
-        create: (context) => AuthRepositoryImpl(
-          dataSource: context.read<AuthDataSource>(),
-        ),
+        create: (context) =>
+            AuthRepositoryImpl(dataSource: context.read<AuthDataSource>()),
       ),
       Provider<ClienteRepository>(
         create: (context) => ClienteRepositoryImpl(
@@ -53,9 +46,8 @@ class DependencyInjection {
     return [
       // ViewModels
       ChangeNotifierProvider<AuthViewModel>(
-        create: (context) => AuthViewModel(
-          authRepository: context.read<AuthRepository>(),
-        ),
+        create: (context) =>
+            AuthViewModel(authRepository: context.read<AuthRepository>()),
       ),
       ChangeNotifierProvider<ClienteViewModel>(
         create: (context) => ClienteViewModel(

@@ -100,20 +100,11 @@ void main() {
 
     test('Deve comparar UserModel corretamente', () {
       // Arrange
-      final user1 = UserModel(
-        uid: 'user123',
-        email: 'user@email.com',
-      );
+      final user1 = UserModel(uid: 'user123', email: 'user@email.com');
 
-      final user2 = UserModel(
-        uid: 'user123',
-        email: 'user@email.com',
-      );
+      final user2 = UserModel(uid: 'user123', email: 'user@email.com');
 
-      final user3 = UserModel(
-        uid: 'user456',
-        email: 'other@email.com',
-      );
+      final user3 = UserModel(uid: 'user456', email: 'other@email.com');
 
       // Assert
       expect(user1 == user2, true);
@@ -140,10 +131,7 @@ void main() {
 
     test('isAdmin deve ser false por padrão', () {
       // Arrange & Act
-      final user = UserModel(
-        uid: 'user123',
-        email: 'user@email.com',
-      );
+      final user = UserModel(uid: 'user123', email: 'user@email.com');
 
       // Assert
       expect(user.isAdmin, false);

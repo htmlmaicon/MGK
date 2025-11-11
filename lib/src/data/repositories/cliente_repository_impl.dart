@@ -8,7 +8,7 @@ class ClienteRepositoryImpl implements ClienteRepository {
   final ClienteDataSource _dataSource;
 
   ClienteRepositoryImpl({required ClienteDataSource dataSource})
-      : _dataSource = dataSource;
+    : _dataSource = dataSource;
 
   @override
   Future<List<ClienteModel>> getAll() {

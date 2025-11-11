@@ -13,18 +13,21 @@ Sistema completo de gerenciamento de clientes desenvolvido com **Flutter**, segu
 ### ✅ Requisitos Atendidos
 
 #### 1. Arquitetura
+
 - ✅ **Clean Architecture** implementada
 - ✅ **MVVM Pattern** com separação de camadas
 - ✅ Camadas: Domain, Data, Presentation
 - ✅ Separação clara de responsabilidades
 
 #### 2. Gerenciamento de Estado
+
 - ✅ **Provider** implementado com MultiProvider
 - ✅ ViewModels com ChangeNotifier
 - ✅ Dependency Injection centralizada
 - ✅ Estado reativo e eficiente
 
 #### 3. Testes Automatizados
+
 - ✅ **57 testes** implementados
 - ✅ Testes unitários (modelos e validações)
 - ✅ Testes de widget (componentes UI)
@@ -45,23 +48,27 @@ Sistema completo de gerenciamento de clientes desenvolvido com **Flutter**, segu
 ## 🚀 Funcionalidades
 
 ### Autenticação e Autorização
+
 - Login com Firebase Authentication
 - Sistema de permissões (Admin/Usuário)
 - Recuperação de senha
 - Solicitações de cadastro com aprovação
 
 ### Gerenciamento de Clientes
+
 - CRUD completo de clientes
 - Busca e filtros
 - Edição inline
 - Validação de dados
 
 ### Contratos
+
 - Visualização de contratos ativos
 - Ativação/desativação de contratos
 - Histórico de alterações
 
 ### Interface
+
 - **Atomic Design**: Componentes reutilizáveis
 - **Responsive**: Adaptável a diferentes telas
 - **Acessibilidade**: Suporte a leitores de tela
@@ -107,18 +114,22 @@ Sistema completo de gerenciamento de clientes desenvolvido com **Flutter**, segu
 ## 🛠️ Tecnologias
 
 ### Core
+
 - **Flutter** 3.8.1
 - **Dart** 3.8.1
 
 ### State Management
+
 - **Provider** 6.1.5+1
 
 ### Backend
+
 - **Firebase Core** 4.2.1
 - **Firebase Auth** 6.1.2
 - **Cloud Firestore** 6.1.0
 
 ### Testing
+
 - **flutter_test**
 - 57 testes automatizados
 
@@ -157,6 +168,7 @@ flutter run
 ### Credenciais de Teste
 
 **Administrador:**
+
 - Email: `admin@gmail.com`
 - Senha: (configurada no Firebase)
 
@@ -225,24 +237,29 @@ test/
 ## 🎨 Atomic Design
 
 ### Atoms (Componentes Básicos)
+
 - CustomButton
 - CustomInput
 
 ### Molecules (Componentes Médios)
+
 - LoginField
 - Cards
 
 ### Organisms (Componentes Complexos)
+
 - RegisterForm
 - ClientsList
 - SolicitationsList
 
 ### Templates
+
 - LoginTemplate
 - RegisterTemplate
 - ClientsTemplate
 
 ### Pages (Telas Completas)
+
 - HomePage
 - LoginPage
 - CadastroClientePage
@@ -252,12 +269,14 @@ test/
 ## 🔐 Sistema de Permissões
 
 ### Administrador
+
 - ✅ Criar/Editar/Remover clientes
 - ✅ Aprovar/Rejeitar solicitações
 - ✅ Gerenciar contratos
 - ✅ Visualizar todos os dados
 
 ### Usuário
+
 - ✅ Visualizar clientes
 - ✅ Ativar/Desativar contratos
 - ❌ Criar/Editar clientes
