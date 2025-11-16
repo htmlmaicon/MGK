@@ -23,8 +23,9 @@ class _LoginFormState extends State<LoginForm> {
     String senha = senhaController.text.trim();
 
     if (email.isEmpty || senha.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Preencha todos os campos.")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Preencha todos os campos.")),
+      );
       return;
     }
 
@@ -48,8 +49,9 @@ class _LoginFormState extends State<LoginForm> {
         default:
           message = 'Erro ao fazer login. Tente novamente.';
       }
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
     } finally {
       setState(() => _loading = false);
     }
@@ -60,7 +62,11 @@ class _LoginFormState extends State<LoginForm> {
     return Column(
       children: [
         LoginField(controller: emailController, label: "Email"),
-        LoginField(controller: senhaController, label: "Senha", isPassword: true),
+        LoginField(
+          controller: senhaController,
+          label: "Senha",
+          isPassword: true,
+        ),
         const SizedBox(height: 16),
         _loading
             ? const CircularProgressIndicator()

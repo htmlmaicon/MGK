@@ -33,7 +33,9 @@ class PostsPage extends StatelessWidget {
           } else {
             return ListView.builder(
               padding: const EdgeInsets.all(10),
-              itemCount: snapshot.data!.length > 10 ? 10 : snapshot.data!.length,
+              itemCount: snapshot.data!.length > 10
+                  ? 10
+                  : snapshot.data!.length,
               itemBuilder: (context, index) {
                 final post = snapshot.data![index];
                 return Card(
@@ -41,9 +43,16 @@ class PostsPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   color: Colors.green[50],
-                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 5,
+                  ),
                   child: ListTile(
-                    leading: Icon(Icons.article, color: Colors.green[800], size: 35),
+                    leading: Icon(
+                      Icons.article,
+                      color: Colors.green[800],
+                      size: 35,
+                    ),
                     title: Text(
                       post['title'],
                       style: TextStyle(

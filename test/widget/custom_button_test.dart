@@ -9,10 +9,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: CustomButton(
-              text: 'Entrar',
-              onPressed: () {},
-            ),
+            body: CustomButton(text: 'Entrar', onPressed: () {}),
           ),
         ),
       );
@@ -125,8 +122,21 @@ void main() {
       );
 
       // Assert
-      final semantics = tester.getSemantics(find.byType(Semantics).first);
-      expect(semantics.label, contains('Acessível'));
+      // Verifica se o widget Semantics foi criado
+      expect(find.byType(Semantics), findsWidgets);
+
+      // Verifica se o botão tem a propriedade button ativada
+      final semantics = tester.widget<Semantics>(
+        find
+            .ancestor(
+              of: find.byType(InkWell),
+              matching: find.byType(Semantics),
+            )
+            .first,
+      );
+
+      expect(semantics.properties.button, isTrue);
+      expect(semantics.properties.label, 'Botão Acessível');
     });
 
     testWidgets('Deve ter tamanho de fonte personalizável', (tester) async {

@@ -127,21 +127,27 @@ class _ClientFormState extends State<ClientForm> {
             CustomTextField(
               controller: nomeController,
               labelText: "Nome completo",
+              maxLength: 50,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CustomTextField(
               controller: rgController,
               labelText: "RG/CNH",
+              maxLength: 50,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CustomTextField(
               controller: cpfController,
               labelText: "CPF",
+              keyboardType: TextInputType.number,
+              maxLength: 11,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CustomTextField(
               controller: nascimentoController,
               labelText: "Data de nascimento",
+              keyboardType: TextInputType.number,
+              maxLength: 8,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CepField(
@@ -155,36 +161,44 @@ class _ClientFormState extends State<ClientForm> {
             CustomTextField(
               controller: enderecoController,
               labelText: "Endereço completo",
+              maxLength: 50,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CustomTextField(
               controller: paiController,
               labelText: "Nome do Pai",
+              maxLength: 50,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CustomTextField(
               controller: maeController,
               labelText: "Nome da Mãe",
+              maxLength: 50,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CustomTextField(
               controller: expedicaoController,
               labelText: "Data de expedição do RG",
+              keyboardType: TextInputType.number,
+              maxLength: 8,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CustomTextField(
               controller: emissorController,
               labelText: "Emissor",
+              maxLength: 50,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CustomTextField(
               controller: rendaController,
               labelText: "Renda Bruta",
+              maxLength: 50,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             CustomTextField(
               controller: emailController,
               labelText: "Email",
+              maxLength: 50,
               validator: (v) => v!.isEmpty ? 'Campo obrigatório' : null,
             ),
             const SizedBox(height: 20),

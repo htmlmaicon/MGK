@@ -1,0 +1,65 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Função auxiliar para verificar se o usuário está autenticado
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    // Função para verificar se é admin (você deve definir isso no Firestore)
+    function isAdmin() {
+      return isSignedIn() && 
+             exists(/databases/$(database)/documents/usuarios/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Regras para solicitações de cadastro
+    match /solicitacoes_cadastro/{solicitacaoId} {
+      // Permitir que qualquer pessoa crie uma solicitação (sem autenticação)
+      allow create: if true;
+      
+      // Apenas admins podem ler, atualizar ou deletar solicitações
+      allow read, update, delete: if isAdmin();
+    }
+    
+    // Regras para usuários
+    match /usuarios/{userId} {
+      // Apenas admins podem criar novos usuários
+      allow create: if isAdmin();
+      
+      // Usuários podem ler seus próprios dados, admins podem ler tudo
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      
+      // Usuários podem atualizar seus próprios dados, admins podem atualizar tudo
+      allow update: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      
+      // Apenas admins podem deletar usuários
+      allow delete: if isAdmin();
+    }
+    
+    // Regras para clientes
+    match /clientes/{clienteId} {
+      // Apenas usuários autenticados podem criar, ler, atualizar e deletar clientes
+      allow read, write: if isSignedIn();
+    }
+    
+    // Regras para posts
+    match /posts/{postId} {
+      // Apenas usuários autenticados podem criar, ler, atualizar e deletar posts
+      allow read, write: if isSignedIn();
+    }
+    
+    // Regras para contratos
+    match /contratos/{contratoId} {
+      // Apenas usuários autenticados podem criar, ler, atualizar e deletar contratos
+      allow read, write: if isSignedIn();
+    }
+    
+    // Regra padrão: negar tudo que não foi especificado
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

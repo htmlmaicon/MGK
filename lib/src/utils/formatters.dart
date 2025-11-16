@@ -5,15 +5,17 @@ import 'package:intl/intl.dart';
 class CpfInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     // Remove tudo que não é número
     final text = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
-    
+
     // Se vazio, retorna vazio
     if (text.isEmpty) {
       return const TextEditingValue(text: '');
     }
-    
+
     // Limita a 11 dígitos (tamanho do CPF)
     final cleanText = text.length > 11 ? text.substring(0, 11) : text;
 
@@ -39,15 +41,17 @@ class CpfInputFormatter extends TextInputFormatter {
 class DateInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     // Remove tudo que não é número
     final text = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
-    
+
     // Se vazio, retorna vazio
     if (text.isEmpty) {
       return const TextEditingValue(text: '');
     }
-    
+
     // Limita a 8 dígitos (DDMMAAAA)
     final cleanText = text.length > 8 ? text.substring(0, 8) : text;
 
@@ -71,15 +75,17 @@ class DateInputFormatter extends TextInputFormatter {
 class CepInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     // Remove tudo que não é número
     final text = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
-    
+
     // Se vazio, retorna vazio
     if (text.isEmpty) {
       return const TextEditingValue(text: '');
     }
-    
+
     // Limita a 8 dígitos (tamanho do CEP)
     final cleanText = text.length > 8 ? text.substring(0, 8) : text;
 
@@ -108,14 +114,16 @@ CepInputFormatter cepFormatter() => CepInputFormatter();
 class CurrencyInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     if (newValue.text.isEmpty) {
       return newValue.copyWith(text: '');
     }
 
     // Remove todos os caracteres não numéricos
     String text = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
-    
+
     if (text.isEmpty) {
       return newValue.copyWith(text: '');
     }
@@ -192,7 +200,7 @@ class DateValidator {
     try {
       // Remove a máscara
       String cleanDate = date.replaceAll(RegExp(r'[^0-9]'), '');
-      
+
       if (cleanDate.length != 8) return false;
 
       int day = int.parse(cleanDate.substring(0, 2));
@@ -206,10 +214,10 @@ class DateValidator {
 
       // Cria a data e verifica se é válida
       DateTime parsedDate = DateTime(year, month, day);
-      
+
       // Verifica se a data criada corresponde aos valores fornecidos
-      if (parsedDate.day != day || 
-          parsedDate.month != month || 
+      if (parsedDate.day != day ||
+          parsedDate.month != month ||
           parsedDate.year != year) {
         return false;
       }
@@ -231,7 +239,7 @@ class DateValidator {
     if (!isValid(value)) {
       return 'Data inválida';
     }
-    
+
     // Verifica se é data futura (para datas de nascimento)
     if (!allowFuture) {
       String cleanDate = value.replaceAll(RegExp(r'[^0-9]'), '');
@@ -239,12 +247,12 @@ class DateValidator {
       int month = int.parse(cleanDate.substring(2, 4));
       int year = int.parse(cleanDate.substring(4, 8));
       DateTime parsedDate = DateTime(year, month, day);
-      
+
       if (parsedDate.isAfter(DateTime.now())) {
         return 'Data não pode ser futura';
       }
     }
-    
+
     return null;
   }
 }
@@ -256,14 +264,14 @@ class RendaValidator {
     if (value == null || value.isEmpty) {
       return 'Campo obrigatório';
     }
-    
+
     // Remove formatação
     String numbers = value.replaceAll(RegExp(r'[^0-9]'), '');
-    
+
     if (numbers.isEmpty || numbers == '0' || numbers == '00') {
       return 'Informe um valor válido';
     }
-    
+
     return null;
   }
 }

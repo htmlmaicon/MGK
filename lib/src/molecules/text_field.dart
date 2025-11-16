@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final TextInputType keyboardType;
   final FormFieldValidator<String>? validator;
+  final int? maxLength;
 
   const CustomTextField({
     super.key,
@@ -12,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     required this.labelText,
     this.keyboardType = TextInputType.text,
     this.validator,
+    this.maxLength,
   });
 
   @override
@@ -35,6 +37,7 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           keyboardType: keyboardType,
+          maxLength: maxLength,
           validator: validator,
         ),
       ),

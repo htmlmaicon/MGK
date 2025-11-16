@@ -9,7 +9,7 @@ class NotificationService {
   NotificationService._internal();
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin _localNotifications = 
+  final FlutterLocalNotificationsPlugin _localNotifications =
       FlutterLocalNotificationsPlugin();
 
   bool _initialized = false;
@@ -28,7 +28,8 @@ class NotificationService {
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('Usuário concedeu permissão para notificações');
-    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
       print('Usuário concedeu permissão provisória');
     } else {
       print('Usuário negou permissão para notificações');
@@ -39,9 +40,8 @@ class NotificationService {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    const InitializationSettings initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
+    const InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
 
     await _localNotifications.initialize(
       initializationSettings,
@@ -58,7 +58,8 @@ class NotificationService {
 
     await _localNotifications
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin
+        >()
         ?.createNotificationChannel(channel);
 
     // Obtém o token do dispositivo
@@ -72,7 +73,8 @@ class NotificationService {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleNotificationTap);
 
     // Verifica se o app foi aberto por uma notificação
-    RemoteMessage? initialMessage = await _firebaseMessaging.getInitialMessage();
+    RemoteMessage? initialMessage = await _firebaseMessaging
+        .getInitialMessage();
     if (initialMessage != null) {
       _handleNotificationTap(initialMessage);
     }
@@ -100,14 +102,15 @@ class NotificationService {
     required String body,
     String? payload,
   }) async {
-    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
-      'high_importance_channel',
-      'Notificações Importantes',
-      channelDescription: 'Canal para notificações importantes do app',
-      importance: Importance.high,
-      priority: Priority.high,
-      showWhen: true,
-    );
+    const AndroidNotificationDetails androidDetails =
+        AndroidNotificationDetails(
+          'high_importance_channel',
+          'Notificações Importantes',
+          channelDescription: 'Canal para notificações importantes do app',
+          importance: Importance.high,
+          priority: Priority.high,
+          showWhen: true,
+        );
 
     const NotificationDetails notificationDetails = NotificationDetails(
       android: androidDetails,
@@ -138,16 +141,13 @@ class NotificationService {
   /// Monitora mudanças de status de aprovação de um cliente
   /// e envia notificação quando aprovado
   void monitorarStatusCliente(String cpf) {
-    FirebaseFirestore.instance
-        .collection('clientes')
-        .doc(cpf)
-        .snapshots()
-        .listen((DocumentSnapshot snapshot) async {
-      
+    FirebaseFirestore.instance.collection('clientes').doc(cpf).snapshots().listen((
+      DocumentSnapshot snapshot,
+    ) async {
       if (snapshot.exists) {
         Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
         String? status = data['status'];
-        
+
         if (status == 'aprovado') {
           await _showLocalNotification(
             title: '🎉 Cadastro Aprovado!',
@@ -156,7 +156,8 @@ class NotificationService {
         } else if (status == 'rejeitado') {
           await _showLocalNotification(
             title: '❌ Cadastro não aprovado',
-            body: 'Infelizmente seu cadastro não foi aprovado. Entre em contato para mais informações.',
+            body:
+                'Infelizmente seu cadastro não foi aprovado. Entre em contato para mais informações.',
           );
         }
       }
@@ -184,10 +185,7 @@ class NotificationService {
   Future<void> salvarTokenNoFirestore(String cpf) async {
     String? token = await getToken();
     if (token != null) {
-      await FirebaseFirestore.instance
-          .collection('clientes')
-          .doc(cpf)
-          .update({
+      await FirebaseFirestore.instance.collection('clientes').doc(cpf).update({
         'fcmToken': token,
         'tokenAtualizadoEm': FieldValue.serverTimestamp(),
       });

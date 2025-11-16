@@ -52,7 +52,10 @@ class CadastroClientePage extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () => _abrirFormulario(context, 'Agricultor'),
                 icon: Icon(Icons.agriculture, color: Colors.white),
-                label: Text('Agricultor', style: TextStyle(color: Colors.white)),
+                label: Text(
+                  'Agricultor',
+                  style: TextStyle(color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[800],
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -68,7 +71,10 @@ class CadastroClientePage extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () => _abrirFormulario(context, 'Assalariado'),
                 icon: Icon(Icons.work, color: Colors.white),
-                label: Text('Assalariado', style: TextStyle(color: Colors.white)),
+                label: Text(
+                  'Assalariado',
+                  style: TextStyle(color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[800],
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -85,7 +91,10 @@ class CadastroClientePage extends StatelessWidget {
                 onPressed: () =>
                     _abrirFormulario(context, 'Aposentado/Pensionista'),
                 icon: Icon(Icons.elderly, color: Colors.white),
-                label: Text('Aposentado/Pensionista', style: TextStyle(color: Colors.white)),
+                label: Text(
+                  'Aposentado/Pensionista',
+                  style: TextStyle(color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[800],
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),

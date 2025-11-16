@@ -17,15 +17,15 @@ import 'src/core/services/notification_service.dart';
 /// Inicializa Firebase, Notificações e configura Dependency Injection com Provider
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Inicializa Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  
+
   // Inicializa notificações apenas em mobile (não funciona na web)
   if (!kIsWeb) {
     // Configura handler de mensagens em background
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-    
+
     // Inicializa serviço de notificações
     try {
       await NotificationService().initialize();
@@ -33,7 +33,7 @@ void main() async {
       print('Erro ao inicializar notificações: $e');
     }
   }
-  
+
   runApp(const MyApp());
 }
 

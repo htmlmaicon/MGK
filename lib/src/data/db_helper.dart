@@ -14,13 +14,15 @@ class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
   static Database? _database;
-  Future<Database> get database async =>
-      _database ??= await _initDatabase();
+  Future<Database> get database async => _database ??= await _initDatabase();
 
   Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), _databaseName);
-    return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreate);
+    return await openDatabase(
+      path,
+      version: _databaseVersion,
+      onCreate: _onCreate,
+    );
   }
 
   Future _onCreate(Database db, int version) async {
@@ -33,10 +35,7 @@ class DatabaseHelper {
     ''');
 
     // Inserindo usuário de teste
-    await db.insert(table, {
-      columnCpf: "12345678900",
-      columnSenha: "1234",
-    });
+    await db.insert(table, {columnCpf: "12345678900", columnSenha: "1234"});
   }
 
   Future<bool> validateLogin(String cpf, String senha) async {

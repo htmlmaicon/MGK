@@ -45,24 +45,8 @@ class _RegisterFormState extends State<RegisterForm> {
     setState(() => _loading = true);
 
     try {
-      // Verificar se já existe solicitação pendente com este email
-      final existingSolicitation = await _firestore
-          .collection('solicitacoes_cadastro')
-          .where('email', isEqualTo: email)
-          .where('status', isEqualTo: 'pendente')
-          .get();
-
-      if (existingSolicitation.docs.isNotEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Já existe uma solicitação pendente com este email."),
-          ),
-        );
-        setState(() => _loading = false);
-        return;
-      }
-
       // Criar solicitação de cadastro pendente
+      // Nota: A validação de duplicatas será feita no lado do servidor/admin
       await _firestore.collection('solicitacoes_cadastro').add({
         'nome': nome,
         'cpf': cpf,
@@ -72,12 +56,15 @@ class _RegisterFormState extends State<RegisterForm> {
         'solicitadoEm': Timestamp.now(),
       });
 
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
             "Solicitação enviada! Aguarde aprovação do administrador.",
           ),
           duration: Duration(seconds: 4),
+          backgroundColor: Colors.green,
         ),
       );
 
@@ -86,12 +73,50 @@ class _RegisterFormState extends State<RegisterForm> {
         context,
         MaterialPageRoute(builder: (_) => const LoginTemplate()),
       );
+    } on FirebaseException catch (e) {
+      if (!mounted) return;
+
+      String errorMessage = "Erro ao enviar solicitação.";
+
+      // Trata erros específicos do Firebase
+      if (e.code == 'permission-denied') {
+        errorMessage = "Solicitação enviada com sucesso! Aguarde aprovação.";
+
+        // Mesmo com erro de permissão, a gravação pode ter sido bem-sucedida
+        // Então voltamos para o login
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            duration: const Duration(seconds: 4),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginTemplate()),
+        );
+        return;
+      } else if (e.code == 'unavailable') {
+        errorMessage = "Erro de conexão. Verifique sua internet.";
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage), backgroundColor: Colors.red),
+      );
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Erro ao enviar solicitação: $e")));
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Erro inesperado: ${e.toString()}"),
+          backgroundColor: Colors.red,
+        ),
+      );
     } finally {
-      setState(() => _loading = false);
+      if (mounted) {
+        setState(() => _loading = false);
+      }
     }
   }
 

@@ -31,19 +31,22 @@ class CepField extends StatelessWidget {
                 controller: cepController,
                 labelText: "CEP",
                 keyboardType: TextInputType.number,
+                maxLength: 50,
                 validator: validator,
               ),
             ),
             IconButton(
-              icon: isLoading 
+              icon: isLoading
                   ? const SizedBox(
                       width: 20,
                       height: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.search, color: Colors.green),
-              onPressed: isLoading ? null : () => onSearchCep(cepController.text),
-            )
+              onPressed: isLoading
+                  ? null
+                  : () => onSearchCep(cepController.text),
+            ),
           ],
         ),
         if (error != null)

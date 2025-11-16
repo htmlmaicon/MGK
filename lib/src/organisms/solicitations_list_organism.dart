@@ -145,7 +145,9 @@ class SolicitationsListOrganism extends StatelessWidget {
             final docId = doc.id;
 
             final Timestamp? timestamp = dados['solicitadoEm'] as Timestamp?;
-            final DateTime? data = timestamp?.toDate();
+            final DateTime? dataUtc = timestamp?.toDate();
+            // Converter para horário de Brasília (UTC-3)
+            final DateTime? data = dataUtc?.subtract(const Duration(hours: 3));
             final String dataFormatada = data != null
                 ? '${data.day.toString().padLeft(2, '0')}/${data.month.toString().padLeft(2, '0')}/${data.year} ${data.hour.toString().padLeft(2, '0')}:${data.minute.toString().padLeft(2, '0')}'
                 : 'Data não disponível';

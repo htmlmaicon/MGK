@@ -31,15 +31,17 @@ class _FormularioPageState extends State<FormularioPage> {
 
   Future<void> buscarCep(String cep) async {
     try {
-      final response = await http.get(Uri.parse("https://viacep.com.br/ws/$cep/json/"));
+      final response = await http.get(
+        Uri.parse("https://viacep.com.br/ws/$cep/json/"),
+      );
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
 
         if (data.containsKey("erro")) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("CEP não encontrado")),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text("CEP não encontrado")));
         } else {
           setState(() {
             enderecoController.text =
@@ -48,9 +50,9 @@ class _FormularioPageState extends State<FormularioPage> {
         }
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Erro ao buscar o CEP")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Erro ao buscar o CEP")));
     }
   }
 
@@ -72,22 +74,34 @@ class _FormularioPageState extends State<FormularioPage> {
               TextFormField(
                 controller: nomeController,
                 decoration: const InputDecoration(labelText: "Nome completo"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                maxLength: 50,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               TextFormField(
                 controller: rgController,
                 decoration: const InputDecoration(labelText: "RG/CNH"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                maxLength: 50,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               TextFormField(
                 controller: cpfController,
                 decoration: const InputDecoration(labelText: "CPF"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                maxLength: 11,
+                keyboardType: TextInputType.number,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               TextFormField(
                 controller: nascimentoController,
-                decoration: const InputDecoration(labelText: "Data de nascimento"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                decoration: const InputDecoration(
+                  labelText: "Data de nascimento",
+                ),
+                maxLength: 8,
+                keyboardType: TextInputType.number,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               Row(
                 children: [
@@ -95,54 +109,79 @@ class _FormularioPageState extends State<FormularioPage> {
                     child: TextFormField(
                       controller: cepController,
                       decoration: const InputDecoration(labelText: "CEP"),
+                      maxLength: 50,
                       keyboardType: TextInputType.number,
-                      validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Campo obrigatório'
+                          : null,
                     ),
                   ),
                   IconButton(
                     icon: const Icon(Icons.search, color: Colors.green),
                     onPressed: () {
                       // Remove a máscara antes de buscar
-                      String cep = cepController.text.replaceAll(RegExp(r'[^0-9]'), '');
+                      String cep = cepController.text.replaceAll(
+                        RegExp(r'[^0-9]'),
+                        '',
+                      );
                       buscarCep(cep);
                     },
-                  )
+                  ),
                 ],
               ),
               TextFormField(
                 controller: enderecoController,
-                decoration: const InputDecoration(labelText: "Endereço completo"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                decoration: const InputDecoration(
+                  labelText: "Endereço completo",
+                ),
+                maxLength: 50,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               TextFormField(
                 controller: paiController,
                 decoration: const InputDecoration(labelText: "Nome do Pai"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                maxLength: 50,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               TextFormField(
                 controller: maeController,
                 decoration: const InputDecoration(labelText: "Nome da Mãe"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                maxLength: 50,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               TextFormField(
                 controller: expedicaoController,
-                decoration: const InputDecoration(labelText: "Data de expedição do RG"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                decoration: const InputDecoration(
+                  labelText: "Data de expedição do RG",
+                ),
+                maxLength: 8,
+                keyboardType: TextInputType.number,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               TextFormField(
                 controller: emissorController,
                 decoration: const InputDecoration(labelText: "Emissor"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                maxLength: 50,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               TextFormField(
                 controller: rendaController,
                 decoration: const InputDecoration(labelText: "Renda Bruta"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                maxLength: 50,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               TextFormField(
                 controller: emailController,
                 decoration: const InputDecoration(labelText: "Email"),
-                validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                maxLength: 50,
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Campo obrigatório' : null,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -150,46 +189,53 @@ class _FormularioPageState extends State<FormularioPage> {
                   if (_formKey.currentState!.validate()) {
                     try {
                       // Remove máscara do CPF para salvar no banco
-                      String cpfLimpo = cpfController.text.replaceAll(RegExp(r'[^0-9]'), '');
-                      
+                      String cpfLimpo = cpfController.text.replaceAll(
+                        RegExp(r'[^0-9]'),
+                        '',
+                      );
+
                       // Salva o cliente no Firestore
                       await FirebaseFirestore.instance
                           .collection('clientes')
                           .doc(cpfLimpo)
                           .set({
-                        'nome': nomeController.text,
-                        'rg': rgController.text,
-                        'cpf': cpfLimpo,
-                        'dataNascimento': nascimentoController.text,
-                        'cep': cepController.text,
-                        'endereco': enderecoController.text,
-                        'pai': paiController.text,
-                        'mae': maeController.text,
-                        'dataExpedicao': expedicaoController.text,
-                        'emissor': emissorController.text,
-                        'renda': rendaController.text,
-                        'email': emailController.text,
-                        'tipoCliente': widget.tipoCliente,
-                        'status': 'pendente',
-                        'dataCadastro': FieldValue.serverTimestamp(),
-                      });
+                            'nome': nomeController.text,
+                            'rg': rgController.text,
+                            'cpf': cpfLimpo,
+                            'dataNascimento': nascimentoController.text,
+                            'cep': cepController.text,
+                            'endereco': enderecoController.text,
+                            'pai': paiController.text,
+                            'mae': maeController.text,
+                            'dataExpedicao': expedicaoController.text,
+                            'emissor': emissorController.text,
+                            'renda': rendaController.text,
+                            'email': emailController.text,
+                            'tipoCliente': widget.tipoCliente,
+                            'status': 'pendente',
+                            'dataCadastro': FieldValue.serverTimestamp(),
+                          });
 
                       // Salva o token FCM para receber notificações (apenas em mobile)
                       if (!kIsWeb) {
                         try {
-                          await NotificationService().salvarTokenNoFirestore(cpfLimpo);
+                          await NotificationService().salvarTokenNoFirestore(
+                            cpfLimpo,
+                          );
                           // Inicia monitoramento de mudanças de status
-                          NotificationService().monitorarStatusCliente(cpfLimpo);
+                          NotificationService().monitorarStatusCliente(
+                            cpfLimpo,
+                          );
                         } catch (e) {
                           // Erro ao configurar notificações
                         }
                       }
 
                       if (mounted) {
-                        String mensagem = kIsWeb 
-                          ? "Formulário enviado com sucesso!"
-                          : "Formulário enviado com sucesso! Você receberá uma notificação quando for aprovado.";
-                        
+                        String mensagem = kIsWeb
+                            ? "Formulário enviado com sucesso!"
+                            : "Formulário enviado com sucesso! Você receberá uma notificação quando for aprovado.";
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(mensagem),
@@ -213,9 +259,15 @@ class _FormularioPageState extends State<FormularioPage> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[800],
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 15,
+                  ),
                 ),
-                child: const Text("Enviar", style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  "Enviar",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
